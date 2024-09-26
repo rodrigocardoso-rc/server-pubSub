@@ -1,7 +1,7 @@
 // client.js
 const WebSocket = require('ws');
 
-const ws = new WebSocket('ws://localhost:8080');
+const ws = new WebSocket('ws://localhost:8080?idConversa=b4619b');
 
 ws.on('open', () => {
     console.log('Connected to WebSocket server');
@@ -9,10 +9,10 @@ ws.on('open', () => {
     // Envie uma mensagem para a conversa com ID "12345"
     const message = JSON.stringify({
         idMenssagem: new Date().toString(),
-        idConversa: 'aaaaaa',
+        idConversa: '063fe3',
         idUsuario: 'José',
         nomeUsuario: 'José',
-        conteudo: 'msg 1',
+        conteudo: 'mozao nn conversa comigo ;-;',
         dataHora: new Date(),
     });
 

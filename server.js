@@ -20,7 +20,7 @@ amqp.connect('amqp://localhost', (err, connection) => {
 
         wss.on('connection', (ws, req) => {
             const queryParams = url.parse(req.url, true).query;
-            const idConversa = queryParams.idConversa;
+            const { idConversa, nome, descricao, dataHoraCriacao } = queryParams;
 
             console.log(`Client connected to conversation: ${idConversa}`);
 
@@ -34,9 +34,18 @@ amqp.connect('amqp://localhost', (err, connection) => {
             if (conversationInfo[idConversa]) {
                 ws.send(JSON.stringify({
                     tipo: 'infoConversa',
+                    idConversa: idConversa,
                     nome: conversationInfo[idConversa].nome,
-                    imagem: conversationInfo[idConversa].imagem
+                    descricao: conversationInfo[idConversa].descricao,
+                    dataHoraCriacao: conversationInfo[idConversa].dataHoraCriacao
                 }));
+            } else {
+                conversationInfo[idConversa] = {
+                    idConversa: idConversa,
+                    nome: nome,
+                    descricao: descricao,
+                    dataHoraCriacao: dataHoraCriacao
+                }
             }
 
             // Se a fila dessa conversa ainda não tiver um consumidor, criar um
